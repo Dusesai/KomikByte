@@ -1,0 +1,3 @@
+/storage/sessions/*
+/work/*
+!/work/.gitkeep

@@ -1,0 +1,1362 @@
+:root { 
+    --bg-dark: #121318;
+    --bg-card: #22242b;
+    --bg-card-hover: #2a2d36;
+    --ink: #ffffff; 
+    --muted: #8a8d98; 
+    --cream: #121318; 
+    --paper: #1a1c23; 
+    --lav: #775df5; 
+    --lav-deep: #5b42db; 
+    --lime: #d6fa6f; 
+    --accent-red: #e63950;
+    --accent-red-hover: #ff4d64;
+    --line: #2a2d36; 
+    --dark: #0f1014; 
+    --shadow: 0 8px 30px rgba(0,0,0,.50); 
+}
+* { box-sizing:border-box; }
+html { background:var(--bg-dark); scroll-behavior:smooth; }
+body { margin:0; min-height:100vh; color:var(--ink); background:var(--bg-dark); font-family:Manrope,Arial,sans-serif; }
+button, input { font:inherit; } button { cursor:pointer; } a { color:inherit; text-decoration:none; }
+
+/* === HEADER LAYOUT === */
+.site-header { 
+    height: 78px; padding: 0 clamp(20px, 5vw, 78px); display: flex; align-items: center; gap: 40px; 
+    border-bottom: 1px solid #1f2128; position: sticky; top: 0; z-index: 10; 
+    background: #0f1014;
+}
+
+.header-actions { 
+    margin-left: auto; /* Pushes the search and buttons to the right corner */
+    display: flex; align-items: center; gap: 15px; 
+}
+
+/* === WIDENED SEARCH BAR === */
+.search-box { width: 350px; position: relative; }
+.search-box input { 
+    width: 100%; padding: 10px 16px 10px 40px; border-radius: 20px; 
+    background: #1a1c23; border: 1px solid #2a2d36; color: white; outline: none; 
+}
+.search-box input:focus { border-color: var(--lav); }
+.search-box::before { 
+    content: "⌕"; position: absolute; z-index: 1; top: 8px; left: 16px; 
+    color: var(--muted); font-size: 18px; 
+}
+
+/* === FIXED BUTTON SHAPES & COLORS === */
+.button { 
+    border: none; border-radius: 20px; min-height: 38px; padding: 0 20px; 
+    display: inline-flex; justify-content: center; align-items: center; 
+    font-size: 13px; font-weight: 700; cursor: pointer; transition: 0.2s;
+    white-space: nowrap; /* Stops "Log in" from breaking into two lines */
+}
+
+/* Colored "Log in" button */
+.button-quiet { background: #2a2d36; color: white; } 
+.button-quiet:hover { background: #383c47; }
+
+.button-primary { background: var(--accent-red); color: white; }
+.button-primary:hover { background: var(--accent-red-hover); transform: translateY(-1px); }
+
+/* === USER MENU & AUTH VISIBILITY (CRITICAL FIX) === */
+/* 1. Hides logged-in buttons when you are logged out */
+.auth-only { display: none !important; }
+.is-authenticated .auth-only { display: flex !important; }
+
+/* 2. Completely removes the "U" circle as requested */
+#user-initial { display: none !important; }
+
+.wallet-chip { 
+    padding: 8px 14px; background: #171923; border-radius: 20px; 
+    color: white; font: 500 12px DM Mono,monospace; text-decoration: none; 
+}
+.wallet-chip span { color: var(--accent-red); margin-right: 4px; }
+
+/* 3. Styles the Username/Logout button cleanly */
+.user-menu { 
+    padding: 8px 16px; display: flex; align-items: center; 
+    border-radius: 20px; font-size: 13px; font-weight: 700; 
+    background: #171923; border: none; color: white; cursor: pointer;
+}
+.user-menu:hover { background: #2a2d36; }
+
+/* === NEW HERO GRID STYLES === */
+.hero-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; padding: 20px 0; }
+.hero-card {
+    background-color: var(--bg-card); border-radius: 12px; padding: 20px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    position: relative; overflow: hidden; text-decoration: none; color: white;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.hero-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.hero-main { min-height: 380px; }
+.hero-side-grid { display: grid; grid-template-rows: 1fr 1fr; gap: 20px; }
+.badge-hot { background: var(--accent-red); color: white; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; width: fit-content; margin-bottom: 8px; }
+
+/* === OVERWRITE CHAPTER UI === */
+.chapter-section .chapter-list { border:none; display: flex; flex-direction: column; gap: 12px; padding-top: 20px; }
+.chapter-row { display:flex; align-items:center; justify-content:space-between; padding:16px 24px; border-radius:8px; font-weight:600; }
+.chapter-row.locked { background:#171923; border:1px solid var(--line); }
+.chapter-row.unlocked { background:#8c919d; color: #0f1014; }
+.button-unlock { background:var(--accent-red); color:white; border:none; border-radius:6px; min-height: 38px; padding: 0 20px; font-weight: 700; transition: 0.2s; }
+.button-unlock:hover { background:var(--accent-red-hover); transform: translateY(-2px); }
+.button-read { background:#383c47; color:white; border:none; border-radius:6px; min-height: 38px; padding: 0 24px; display: grid; place-items: center; }
+.button-read:hover { background:#4a4f5c; }
+.brand{font-size:21px}.main-nav{display:none}
+.header-actions{gap:3px}
+.header-actions .button{padding:0 9px;min-height:37px;font-size:11px}
+.user-menu span:last-child,.wallet-chip{display:none!important}
+.is-authenticated.auth-only,.is-authenticated .auth-only{display:flex!important}main{min-height:calc(100vh - 67px)}.page{padding:32px 20px 55px}.hero{min-height:370px;margin:0 -20px;padding:42px 25px}.comic-grid{grid-template-columns:1fr}.comic-detail-top,.wallet-layout{grid-template-columns:1fr}.detail-cover{max-width:280px}.chapter-row{gap:9px}.chapter-name{font-size:12px}.chapter-tag{min-width:52px}.auth-dialog[open]{display:block}.auth-art{display:none}.auth-form{padding:34px 25px}.small-dialog{padding:29px 22px}.transaction-table{display:block;overflow-x:auto}.page-heading{align-items:start;flex-direction:column}.search-box{width:100%}.reader-actions{gap:8px}.reader-actions .button{padding:0 11px;font-size:11px} 
+/* === FINAL LOGOUT BUTTON FIX === */
+/* 1. Completely hide the dynamic JS spans */
+#header-username, #user-initial {
+    display: none !important;
+}
+
+/* === CORRECTED AUTH VISIBILITY & LOGOUT BUTTON FIX === */
+
+/* 1. Ensure the logout button is completely hidden when logged out */
+#user-menu.auth-only {
+    display: none !important;
+}
+
+/* 2. Style it as a red pill button ONLY when the user is logged in */
+body.is-authenticated #user-menu {
+    display: inline-flex !important;
+    background: var(--accent-red) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 20px !important;
+    min-height: 38px !important;
+    padding: 0 20px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+}
+
+body.is-authenticated #user-menu:hover {
+    background: var(--accent-red-hover) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* 3. Hide the old inner spans and cleanly inject "Log out" on a single line */
+#user-menu #header-username, 
+#user-menu #user-initial {
+    display: none !important;
+}
+
+#user-menu::after {
+    content: "Log out" !important;
+    display: inline-block !important;
+    white-space: nowrap !important;
+}
+/* === FORCE NAVIGATION BAR TO ALWAYS SHOW & BE VISIBLE === */
+.main-nav {
+    display: flex !important;
+    align-items: center;
+    gap: 24px;
+    margin-left: 20px;
+}
+
+.main-nav a {
+    color: #8a8d98 !important; /* Muted gray for unselected links */
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.main-nav a:hover, 
+.main-nav a.active {
+    color: #ffffff !important; /* Bright white when hovered or active */
+}
+/* =========================================================
+   KOMIKBYTE AUTHENTICATION — MODERN COMIC READER UI
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   DIALOG
+   --------------------------------------------------------- */
+
+.auth-dialog {
+    width: min(960px, calc(100vw - 40px));
+    max-width: 960px;
+
+    min-height: 570px;
+
+    padding: 0;
+
+    border: 1px solid #2a2d36;
+    border-radius: 24px;
+
+    background: #121318;
+    color: #ffffff;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 30px 90px rgba(0, 0, 0, 0.75),
+        0 0 80px rgba(119, 93, 245, 0.08);
+}
+
+
+/* Dark blurred background */
+.auth-dialog::backdrop {
+    background: rgba(7, 8, 11, 0.86);
+    backdrop-filter: blur(10px);
+}
+
+
+/* When dialog is open */
+.auth-dialog[open] {
+    display: grid;
+    grid-template-columns: 43% 57%;
+}
+
+
+/* ---------------------------------------------------------
+   CLOSE BUTTON
+   --------------------------------------------------------- */
+
+.auth-dialog .dialog-close {
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    z-index: 20;
+
+    width: 36px;
+    height: 36px;
+
+    padding: 0;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid #2a2d36;
+    border-radius: 10px;
+
+    background: rgba(15, 16, 20, 0.75);
+    color: #8a8d98;
+
+    font-size: 21px;
+    line-height: 1;
+
+    transition: 0.2s ease;
+}
+
+.auth-dialog .dialog-close:hover {
+    background: #2a2d36;
+    border-color: #775df5;
+
+    color: #ffffff;
+
+    transform: rotate(90deg);
+}
+
+
+/* ---------------------------------------------------------
+   LEFT ART PANEL
+   --------------------------------------------------------- */
+
+.auth-art {
+    position: relative;
+
+    min-height: 570px;
+
+    padding: 42px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 15% 15%,
+            rgba(119, 93, 245, 0.28),
+            transparent 38%
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(230, 57, 80, 0.18),
+            transparent 38%
+        ),
+        #171923;
+}
+
+
+/* Subtle diagonal texture */
+.auth-art::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: 0.035;
+
+    background-image:
+        linear-gradient(
+            135deg,
+            #ffffff 1px,
+            transparent 1px
+        );
+
+    background-size: 28px 28px;
+
+    pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   BRAND
+   --------------------------------------------------------- */
+
+.auth-brand {
+    position: relative;
+    z-index: 5;
+
+    display: inline-flex;
+    align-items: center;
+
+    gap: 10px;
+
+    width: fit-content;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    color: #ffffff;
+}
+
+.auth-brand > span:last-child > span {
+    color: #e63950;
+}
+
+
+.auth-brand-mark {
+    width: 32px;
+    height: 32px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 9px;
+
+    background: #e63950;
+
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 800;
+
+    box-shadow:
+        0 8px 25px rgba(230, 57, 80, 0.25);
+}
+
+
+/* ---------------------------------------------------------
+   LEFT CONTENT
+   --------------------------------------------------------- */
+
+.auth-art-middle {
+    position: relative;
+    z-index: 5;
+
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+
+.auth-art-eyebrow {
+    display: inline-flex;
+
+    padding: 6px 10px;
+
+    margin-bottom: 18px;
+
+    border: 1px solid rgba(119, 93, 245, 0.35);
+    border-radius: 999px;
+
+    background: rgba(119, 93, 245, 0.10);
+
+    color: #a99cff;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+
+.auth-art h2 {
+    max-width: 340px;
+
+    margin: 0;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: clamp(36px, 4vw, 52px);
+    line-height: 0.98;
+
+    letter-spacing: -2px;
+}
+
+
+.auth-art h2 em {
+    color: #d6fa6f;
+
+    font-style: normal;
+}
+
+
+.auth-art-middle p {
+    max-width: 340px;
+
+    margin: 22px 0 0;
+
+    color: #8a8d98;
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+/* ---------------------------------------------------------
+   FEATURES
+   --------------------------------------------------------- */
+
+.auth-art-bottom {
+    position: relative;
+    z-index: 5;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 13px;
+}
+
+
+.auth-feature {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.auth-feature > span {
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid #2a2d36;
+    border-radius: 9px;
+
+    background: rgba(18, 19, 24, 0.65);
+
+    color: #d6fa6f;
+
+    font-size: 13px;
+}
+
+
+.auth-feature strong {
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: #ffffff;
+
+    font-size: 11px;
+}
+
+
+.auth-feature small {
+    display: block;
+
+    color: #686b76;
+
+    font-size: 10px;
+}
+
+
+/* ---------------------------------------------------------
+   DECORATIVE ORBS
+   --------------------------------------------------------- */
+
+.auth-orb {
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    filter: blur(2px);
+}
+
+
+.auth-orb-one {
+    width: 190px;
+    height: 190px;
+
+    top: -90px;
+    right: -70px;
+
+    background: #775df5;
+
+    opacity: 0.10;
+}
+
+
+.auth-orb-two {
+    width: 150px;
+    height: 150px;
+
+    bottom: -70px;
+    left: -50px;
+
+    background: #e63950;
+
+    opacity: 0.08;
+}
+
+
+/* ---------------------------------------------------------
+   RIGHT FORM
+   --------------------------------------------------------- */
+
+.auth-form {
+    position: relative;
+
+    padding: 52px 58px 42px;
+
+    background: #121318;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+/* ---------------------------------------------------------
+   LOGIN / REGISTER TOGGLE
+   --------------------------------------------------------- */
+
+.auth-toggle {
+    display: flex;
+
+    gap: 26px;
+
+    margin-bottom: 34px;
+
+    border-bottom: 1px solid #2a2d36;
+}
+
+
+.auth-toggle button {
+    position: relative;
+
+    padding: 0 0 13px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #686b76;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.auth-toggle button:hover {
+    color: #ffffff;
+}
+
+
+.auth-toggle button.active {
+    color: #ffffff;
+}
+
+
+.auth-toggle button.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: -1px;
+
+    height: 2px;
+
+    border-radius: 999px;
+
+    background: #e63950;
+}
+
+
+/* ---------------------------------------------------------
+   FORM HEADER
+   --------------------------------------------------------- */
+
+.form-copy {
+    margin-bottom: 28px;
+}
+
+
+.form-copy .eyebrow {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #e63950;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+
+.form-copy h2 {
+    max-width: 430px;
+
+    margin: 0;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: clamp(27px, 3vw, 36px);
+    line-height: 1.08;
+
+    letter-spacing: -1.2px;
+
+    color: #ffffff;
+}
+
+
+.form-copy p {
+    max-width: 430px;
+
+    margin: 12px 0 0;
+
+    color: #8a8d98;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* ---------------------------------------------------------
+   FORM FIELDS
+   --------------------------------------------------------- */
+
+.auth-form .form-field {
+    display: block;
+
+    margin-bottom: 17px;
+
+    color: #dfe1e8;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+.auth-form .form-field > span {
+    display: block;
+
+    margin-bottom: 8px;
+}
+
+
+.auth-form .form-field input {
+    width: 100%;
+    height: 47px;
+
+    padding: 0 14px;
+
+    border: 1px solid #2a2d36;
+    border-radius: 10px;
+
+    outline: none;
+
+    background: #1a1c23;
+
+    color: #ffffff;
+
+    font-family: "Manrope", sans-serif;
+
+    font-size: 12px;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.auth-form .form-field input::placeholder {
+    color: #5f626c;
+}
+
+
+.auth-form .form-field input:hover {
+    border-color: #383c47;
+}
+
+
+.auth-form .form-field input:focus {
+    border-color: #775df5;
+
+    background: #1c1e26;
+
+    box-shadow:
+        0 0 0 3px rgba(119, 93, 245, 0.10);
+}
+
+
+/* ---------------------------------------------------------
+   VERY IMPORTANT:
+   HIDDEN REGISTER FIELDS
+   --------------------------------------------------------- */
+
+.auth-form .hidden,
+.auth-form .form-field.hidden {
+    display: none !important;
+}
+
+
+/* ---------------------------------------------------------
+   SUBMIT BUTTON
+   --------------------------------------------------------- */
+
+.auth-form .button-full {
+    width: 100%;
+
+    min-height: 48px;
+
+    margin-top: 4px;
+
+    border: none;
+    border-radius: 11px;
+
+    background: #e63950;
+
+    color: #ffffff;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    box-shadow:
+        0 10px 28px rgba(230, 57, 80, 0.16);
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.auth-form .button-full:hover {
+    background: #ff4d64;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 32px rgba(230, 57, 80, 0.24);
+}
+
+
+.auth-form .button-full:active {
+    transform: translateY(0);
+}
+
+
+/* ---------------------------------------------------------
+   SIMULATION NOTICE
+   --------------------------------------------------------- */
+
+.simulation-note {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    margin-top: 18px;
+    padding: 11px 13px;
+
+    border: 1px solid #2a2d36;
+    border-radius: 10px;
+
+    background: #171923;
+}
+
+
+.simulation-icon {
+    width: 28px;
+    height: 28px;
+
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 8px;
+
+    background: rgba(214, 250, 111, 0.09);
+
+    color: #d6fa6f;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+.simulation-note strong {
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: #cfd1d8;
+
+    font-size: 10px;
+}
+
+
+.simulation-note small {
+    display: block;
+
+    color: #686b76;
+
+    font-size: 9px;
+
+    line-height: 1.4;
+}
+
+
+/* ---------------------------------------------------------
+   ERROR
+   --------------------------------------------------------- */
+
+.auth-form .form-error {
+    display: none;
+
+    margin: -2px 0 14px;
+
+    padding: 10px 12px;
+
+    border: 1px solid rgba(230, 57, 80, 0.30);
+    border-radius: 8px;
+
+    background: rgba(230, 57, 80, 0.08);
+
+    color: #ff7b8b;
+
+    font-size: 11px;
+}
+
+
+.auth-form .form-error:not(:empty) {
+    display: block;
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+
+@media (max-width: 760px) {
+
+    .auth-dialog {
+        width: calc(100vw - 24px);
+
+        min-height: auto;
+
+        border-radius: 18px;
+    }
+
+    .auth-dialog[open] {
+        display: block;
+    }
+
+    .auth-art {
+        display: none;
+    }
+
+    .auth-form {
+        padding: 43px 25px 30px;
+    }
+
+    .form-copy h2 {
+        font-size: 29px;
+    }
+
+    .auth-toggle {
+        margin-bottom: 30px;
+    }
+
+}
+/* =========================================================
+   KOMIKBYTE — MAIN PAGE REDESIGN
+   ========================================================= */
+
+:root {
+    --home-bg: #121318;
+    --home-card: #22242b;
+    --home-card-2: #171923;
+    --home-line: #2a2d36;
+    --home-red: #e63950;
+    --home-red-hover: #ff4d64;
+    --home-purple: #775df5;
+    --home-lime: #d6fa6f;
+}
+
+
+/* ---------------------------------------------------------
+   MAIN PAGE
+   --------------------------------------------------------- */
+
+.page {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 30px 32px 70px;
+}
+
+
+/* ---------------------------------------------------------
+   HERO GRID
+   --------------------------------------------------------- */
+
+.hero-grid {
+    display: grid;
+
+    grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 58px;
+}
+
+
+.hero-main {
+    min-height: 440px;
+}
+
+
+.hero-side-grid {
+    display: grid;
+
+    grid-template-rows: 1fr 1fr;
+
+    gap: 18px;
+}
+
+
+/* ---------------------------------------------------------
+   HERO CARD
+   --------------------------------------------------------- */
+
+.hero-card {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    min-height: 200px;
+
+    padding: 32px;
+
+    overflow: hidden;
+
+    border: 1px solid #2a2d36;
+    border-radius: 18px;
+
+    background-color: #22242b;
+
+    isolation: isolate;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.hero-card:hover {
+    transform: translateY(-4px);
+
+    border-color: #383c47;
+
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.45);
+}
+
+
+/* ---------------------------------------------------------
+   HERO IMAGE
+   --------------------------------------------------------- */
+
+.hero-card::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: -2;
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    transform: scale(1.01);
+
+    transition: transform 0.5s ease;
+}
+
+
+.hero-card:hover::before {
+    transform: scale(1.06);
+}
+
+
+/* Dark image overlay */
+
+.hero-card::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: -1;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(10, 11, 15, 0.96) 0%,
+            rgba(10, 11, 15, 0.70) 35%,
+            rgba(10, 11, 15, 0.20) 75%,
+            rgba(10, 11, 15, 0.05) 100%
+        );
+}
+
+
+/* ---------------------------------------------------------
+   HERO CONTENT
+   --------------------------------------------------------- */
+
+.hero-card .badge-hot {
+    margin-bottom: 12px;
+
+    padding: 5px 9px;
+
+    border-radius: 6px;
+
+    background: #e63950;
+
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 0.3px;
+}
+
+
+.hero-card h2,
+.hero-card h3 {
+    margin: 0 0 7px;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    color: #ffffff;
+
+    letter-spacing: -0.7px;
+}
+
+
+.hero-main h2 {
+    font-size: clamp(30px, 4vw, 48px);
+}
+
+
+.hero-side-grid h3 {
+    font-size: 21px;
+}
+
+
+.hero-card p {
+    margin: 0;
+
+    color: #c2c5ce;
+
+    font-size: 12px;
+}
+
+
+/* ---------------------------------------------------------
+   HERO BUTTON
+   --------------------------------------------------------- */
+
+.hero-card .button-primary {
+    width: fit-content;
+
+    margin-top: 17px;
+
+    padding: 0 18px;
+
+    min-height: 38px;
+
+    border-radius: 9px;
+
+    background: #e63950;
+
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 800;
+}
+
+
+.hero-card .button-primary:hover {
+    background: #ff4d64;
+
+    transform: translateY(-1px);
+}
+
+
+/* ---------------------------------------------------------
+   POPULAR SECTION
+   --------------------------------------------------------- */
+
+.page-section {
+    margin-top: 30px;
+}
+
+
+.page-section h2,
+.section-title {
+    margin: 0 0 18px;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    color: #ffffff;
+
+    font-size: 22px;
+
+    letter-spacing: -0.5px;
+}
+
+
+.page-section > h2::after,
+.section-title::after {
+    content: "";
+
+    display: inline-block;
+
+    width: 28px;
+    height: 3px;
+
+    margin-left: 9px;
+
+    vertical-align: middle;
+
+    border-radius: 999px;
+
+    background: #e63950;
+}
+
+
+/* ---------------------------------------------------------
+   COMIC GRID
+   --------------------------------------------------------- */
+
+.comic-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+
+.comic-card {
+    position: relative;
+
+    overflow: hidden;
+
+    border: 1px solid #2a2d36;
+    border-radius: 13px;
+
+    background: #1a1c23;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.comic-card:hover {
+    transform: translateY(-5px);
+
+    border-color: #383c47;
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.40);
+}
+
+
+/* ---------------------------------------------------------
+   COMIC COVER
+   --------------------------------------------------------- */
+
+.comic-card .comic-cover,
+.comic-card img {
+    display: block;
+
+    width: 100%;
+
+    aspect-ratio: 2 / 3;
+
+    object-fit: cover;
+
+    background: #22242b;
+}
+
+
+.comic-card .comic-info {
+    padding: 13px 14px 15px;
+}
+
+
+.comic-card h3 {
+    margin: 0 0 5px;
+
+    color: #ffffff;
+
+    font-family: "Space Grotesk", sans-serif;
+
+    font-size: 14px;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.comic-card p {
+    margin: 0;
+
+    color: #8a8d98;
+
+    font-size: 10px;
+}
+
+
+/* ---------------------------------------------------------
+   STATUS
+   --------------------------------------------------------- */
+
+.comic-status {
+    display: inline-flex;
+
+    margin-top: 9px;
+
+    padding: 4px 7px;
+
+    border-radius: 5px;
+
+    background: #22242b;
+
+    color: #8a8d98;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+
+/* ---------------------------------------------------------
+   RESPONSIVE
+   --------------------------------------------------------- */
+
+@media (max-width: 1100px) {
+
+    .comic-grid {
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 850px) {
+
+    .page {
+        padding: 24px 20px 55px;
+    }
+
+    .hero-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-main {
+        min-height: 400px;
+    }
+
+    .hero-side-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: none;
+    }
+
+    .comic-grid {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .hero-side-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .comic-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .hero-card {
+        padding: 24px;
+    }
+
+}
