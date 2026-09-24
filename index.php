@@ -24,7 +24,7 @@
             <a href="#/" data-nav="manga">Latest</a>
             <a href="#/" data-nav="manhua">Completed</a>
             <a href="#/library" data-nav="library" class="auth-only">My Library</a>
-            <a href="#/wallet" data-nav="wallet" class="auth-only">Wallet</a>
+            <a href="#/wallet" data-nav="wallet" class="auth-only">pitaka</a>
         </nav>
         <div class="header-actions">
             <!-- Search Bar moved to header like the Bangan UI -->
